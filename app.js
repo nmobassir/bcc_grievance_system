@@ -9,8 +9,14 @@ var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/bcc_grievance');
 
+//Authentication
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
+
+//Routes
 var routes = require('./routes/index');
 var admin = require('./routes/admin');
+var form = require ('./routes/form');
 var users = require('./routes/users');
 
 var app = express();
@@ -36,6 +42,7 @@ app.use(function(req,res,next){
 app.use('/', routes);
 app.use('/users', users);
 app.use('/admin', admin);
+app.use('/form', form);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -68,5 +75,34 @@ app.use(function(err, req, res, next) {
   });
 });
 
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
+
+app.post('/admin',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/admin',
+                                   failureFlash: true })
+);
+
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'passwd'
+  },
+  function(username, password, done) {
+    // ...
+  }
+));
 
 module.exports = app;

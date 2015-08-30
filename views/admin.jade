@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    |     
+    title Login
+    |     
+    |     
+    |     
+    |     
+    |         
+    link(rel='stylesheet', href='stylesheets/admin.css')
+  |   
+  body
+    body.align
+      .site__container
+        .grid__container
+          form.form.form--login(action='', method='post')
+            .form__field
+              label.fontawesome-user(for='login__username')
+                span.hidden Username
+              |           
+              input#login__username.form__input(type='text', placeholder='Username', required='')
+            |         
+            .form__field
+              label.fontawesome-lock(for='login__password')
+                span.hidden Password
+              |           
+              input#login__password.form__input(type='password', placeholder='Password', required='')
+            |         
+            .form__field
+              input#adminlogin(type='submit', value='Sign In')

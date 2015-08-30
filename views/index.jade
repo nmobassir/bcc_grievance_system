@@ -1,0 +1,72 @@
+extends layout
+
+script(type='text/javascript').
+    var RecaptchaOptions = {
+      theme : 'clean',
+      lang  : 'en'
+      };
+
+block content
+    h1= "BCC Grievance System"
+    p App Manager
+
+    // Wrapper
+    #wrapper
+
+        // USER INFO
+        #userInfo
+            h2 Ticket Info
+            p
+                strong Name:
+                |  <span id='userInfoName'></span>
+                br
+                strong Department:
+                |  <span id='userInfoDepartment'></span>
+                br
+                strong Title:
+                |  <span id='userInfoTitle'></span>
+                br
+                strong Grievance:
+                |  <span id='userInfoGrievance'></span>
+                br
+                strong Attachment?:
+                |  <span id='userInfoAttachment'></span>
+        // /USER INFO
+
+        // USER LIST
+        h2 Grievances
+        #userList
+            table
+                thead
+                    th Ticket
+                    th Email
+                    th Delete?
+                tbody
+        // /USER LIST
+
+        // ADD USER
+        h2 Add Complaint
+        #addUser
+            fieldset
+                input#inputUserName(type='text', placeholder='Full Name')
+                br
+                input#inputUserDepartment(type='text', placeholder='Department')
+                br
+                input#inputUserTicket(type='text', placeholder='Phone No.')
+                br
+                input#inputUserEmail(type='text', placeholder='Email')
+                br
+                input#inputUserTitle(type='text', placeholder='Subject of Grievance')
+                br
+                textArea#inputUserGrievance(type='text', placeholder='Enter Grievance', rows='8', cols='40')
+                br
+                input#inputUserAttachment(type='text', placeholder='Attachment?')
+                br
+                .g-recaptcha(data-sitekey='6LfY2AsTAAAAACgChP6L64gsx-iSEfHkXLhjYAro')
+                br
+                form(method='POST', action='.')
+                != recaptcha_form
+                button#btnAddUser Submit
+        // /ADD USER
+
+    // /WRAPPER

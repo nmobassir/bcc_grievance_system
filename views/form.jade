@@ -1,0 +1,26 @@
+extends layout
+
+block content
+
+        // ADD USER
+        h2 Add Complaint
+        #addUser
+            fieldset
+                input#inputUserTicket(type='text', placeholder='Ticket')
+                br
+                input#inputUserName(type='text', placeholder='Full Name')
+                br
+                input#inputUserDepartment(type='text', placeholder='Department')
+                br
+                input#inputUserEmail(type='text', placeholder='Email')
+                br
+                input#inputUserTitle(type='text', placeholder='Subject of Grievance')
+                br
+                textArea#inputUserGrievance(type='text', placeholder='Enter Grievance', rows='8', cols='40')
+                br
+                input#inputUserAttachment(type='text', placeholder='Attachment?')
+                br
+                button#btnAddUser Submit
+        // /ADD USER
+
+    // /WRAPPER
